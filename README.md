@@ -1,49 +1,28 @@
-# Adafruit BNO08x [![Build Status](https://github.com/adafruit/Adafruit_BNO08x/workflows/Arduino%20Library%20CI/badge.svg)](https://github.com/adafruit/Adafruit_BNO08x/actions)[![Documentation](https://github.com/adafruit/ci-arduino/blob/master/assets/doxygen_badge.svg)](http://adafruit.github.io/Adafruit_BNO08x/html/index.html)
+# SyulimeTracker_BNO08x
 
+AdafruitのBNO08x用ライブラリ、`Adafruit_BNO08x`を改造したものです。
 
-This is the Adafruit BNO08x 9-DOF Orientation IMU Fusion Breakout for Arduino
-Tested and works great with the Adafruit BNO08x Breakout Board
-[<img src="assets/board.png?raw=true" width="500px">](https://www.adafruit.com/products/4754)
-Adafruit invests time and resources providing this open source code, please support Adafruit and open-source hardware by purchasing products from Adafruit!
+# 変更点
 
-# Installation
-To install, use the Arduino Library Manager and search for "Adafruit BNO08x" and install the library.
+デフォルトではこのライブラリ単体によってI2Cのピンを変更出来ません。  
+しかし、ESP32は内部のGPIO MatrixによってI2Cのピンを変更する事ができます。  
+(ArduinoでもソフトウェアI2Cを用いる事で変更可能である。)
 
-## Dependencies
- * [Adafruit BusIO](https://github.com/adafruit/Adafruit_BusIO)
- * [Adafruit Unified Sensor Driver](https://github.com/adafruit/Adafruit_Sensor)
+そこで、通常はI2Cアドレスを渡すコンストラクタにSDA、SCLピンの番号を渡すようにしました。  
+内部的には`<Wire>.begin`に対してピン番号を渡しているだけになります。  
+(もっと正確にいうとこのライブラリ自体はI2Cの通信をしていないので、BusIOに渡しているだけである。)
 
-# Contributing
+# 依存関係
 
-Contributions are welcome! Please read our [Code of Conduct](https://github.com/adafruit/Adafruit_BNO08x/blob/master/CODE_OF_CONDUCT.md>)
-before contributing to help this project stay welcoming.
+このライブラリを使用するには、元ライブラリである`Adafruit_BNO08x`とほぼ同じ依存関係を解決する必要があります。  
+ただし、`Adafruit_BNO08x`自体は必要なく、`Adafruit_BusIO`ライブラリの代わりにカスタマイズされた専用ライブラリを使用する必要があります。  
 
-## Documentation and doxygen
-Documentation is produced by doxygen. Contributions should include documentation for any new code added.
+# インストール
 
-Some examples of how to use doxygen can be found in these guide pages:
+もし嫌でないなら、以下の方法を使ってインストールするのを推奨します。
 
-https://learn.adafruit.com/the-well-automated-arduino-library/doxygen
-
-https://learn.adafruit.com/the-well-automated-arduino-library/doxygen-tips
-
-## Formatting and clang-format
-This library uses [`clang-format`](https://releases.llvm.org/download.html) to standardize the formatting of `.cpp` and `.h` files. 
-Contributions should be formatted using `clang-format`:
-
-The `-i` flag will make the changes to the file.
-```bash
-clang-format -i *.cpp *.h
-```
-If you prefer to make the changes yourself, running `clang-format` without the `-i` flag will print out a formatted version of the file. You can save this to a file and diff it against the original to see the changes.
-
-Note that the formatting output by `clang-format` is what the automated formatting checker will expect. Any diffs from this formatting will result in a failed build until they are addressed. Using the `-i` flag is highly recommended.
-
-### clang-format resources
-  * [Binary builds and source available on the LLVM downloads page](https://releases.llvm.org/download.html)
-  * [Documentation and IDE integration](https://clang.llvm.org/docs/ClangFormat.html)
-
-## About this Driver
-Written by Bryan Siepert for Adafruit Industries.
-MIT license, check license.txt for more information
-All text above must be included in any redistribution
+1. Arduinoディレクトリ内の`libraries'ディレクトリにこのレポジトリをCloneします。  
+  通常、Arduinoディレクトリはユーザーのドキュメントディレクトリにあります。
+2. 同様に、[`nattyan-tv/SyulimeTracker_BusIO`](https://github.com/nattyan-tv/SyulimeTracker_BusIO)レポジトリもCloneします。
+3. Arduino IDEを開き、パッケージマネージャーから`Adafruit BNO08x`をインストールします。  
+  正常に動作させるためのそのほかの依存関係が必要なので、依存関係までインストールしてください。
