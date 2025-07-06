@@ -38,7 +38,7 @@
 
 #include "SyulimeTracker_BNO08x.h"
 
-static SyulimeTracker_SPIDevice *spi_dev = NULL; ///< Pointer to SPI bus interface
+static Adafruit_SPIDevice *spi_dev = NULL; ///< Pointer to SPI bus interface
 static int8_t _int_pin, _reset_pin;
 
 static SyulimeTracker_I2CDevice *i2c_dev = NULL; ///< Pointer to I2C bus interface
@@ -178,7 +178,7 @@ bool SyulimeTracker_BNO08x::begin_SPI(uint8_t cs_pin, uint8_t int_pin,
   {
     delete spi_dev; // remove old interface
   }
-  spi_dev = new SyulimeTracker_SPIDevice(cs_pin,
+  spi_dev = new Adafruit_SPIDevice(cs_pin,
                                          1000000,               // frequency
                                          SPI_BITORDER_MSBFIRST, // bit order
                                          SPI_MODE3,             // data mode
