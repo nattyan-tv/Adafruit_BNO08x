@@ -20,8 +20,9 @@
 #include "Arduino.h"
 #include "sh2.h"
 #include "sh2_SensorValue.h"
-#include "sh2_err.h" #include "../../SyulimeTracker_BusIO_Register.h"
-#include "../../SyulimeTracker_I2CDevice.h"
+#include "sh2_err.h"
+#include <SyulimeTracker_BusIO_Register.h>
+#include <SyulimeTracker_I2CDevice.h>
 #include "Adafruit_Sensor.h"
 #include <Wire.h>
 
